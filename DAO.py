@@ -27,6 +27,15 @@ class applicantDAO:
         for x in myresult:
             return x
 
+    def getIDList():
+        idList = []
+        mycursor = universities_db.cursor()
+        mycursor.execute("SELECT id FROM final_project.applicants")
+        myresult = mycursor.fetchall()
+        for x in myresult:
+            idList.append(x[0])
+        return idList
+
     def create(Applicant):
         first_name = Applicant.get_first_name()
         last_name = Applicant.get_last_name()
@@ -73,10 +82,19 @@ class programDAO:
     
     def findById(id):
         mycursor = universities_db.cursor()
-        mycursor.execute("SELECT * FROM final_project.programs WHERE id=%(id)s", {'id': id})
+        mycursor.execute("SELECT * FROM final_project.programs WHERE id_program=%(id)s", {'id': id})
         myresult = mycursor.fetchall()
         for x in myresult:
             return x
+
+    def getIDList():
+        idList = []
+        mycursor = universities_db.cursor()
+        mycursor.execute("SELECT id_program FROM final_project.programs")
+        myresult = mycursor.fetchall()
+        for x in myresult:
+            idList.append(x[0])
+        return idList
 
     def create(Program):
         program_name = Program.get_program_name()
@@ -125,6 +143,15 @@ class universitiesDAO:
         for x in myresult:
             return x
 
+    def getIDList():
+        idList = []
+        mycursor = universities_db.cursor()
+        mycursor.execute("SELECT university_name FROM final_project.universities")
+        myresult = mycursor.fetchall()
+        for x in myresult:
+            idList.append(x[0])
+        return idList
+        
     def create(University):
         university_name = University.get_university_name()
         location = University.get_location()
