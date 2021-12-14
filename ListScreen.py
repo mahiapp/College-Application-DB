@@ -35,7 +35,8 @@ class ListScreen(tkinter.Tk):
                             show='headings', height=5)
         
         self.universityTree = ttk.Treeview(self, column=("c1", "c2", "c3"),
-                            show='headings', height=5)                  
+                            show='headings', height=5)     
+                     
 
         self.applicantTree.column("#1 ", anchor=CENTER)
         self.applicantTree.heading("# 1", text="Applicant Id")

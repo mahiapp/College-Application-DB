@@ -2,6 +2,7 @@ import mysql.connector as mysql
 from DataModel import Applicant
 from DataModel import Program
 from DataModel import University
+from DataModel import Application
 
 # connect to database
 universities_db = mysql.connect(
@@ -177,6 +178,55 @@ class universitiesDAO:
         mycursor.execute("DELETE FROM final_project.universities WHERE university_name=%(id)s", {'id': id})
         universities_db.commit()
 
+class applicationDAO:
+    def findAll():
+        applicationList = []
+        mycursor = universities_db.cursor()
+        mycursor.execute("SELECT * FROM final_project.applications")
+        myresult = mycursor.fetchall()
+        for x in myresult:
+            applicationList.append(x)
+        return applicationList
+    
+    def findById(id):
+        mycursor = universities_db.cursor()
+        mycursor.execute("SELECT * FROM final_project.applications WHERE application_id=%(id)s", {'id': id})
+        myresult = mycursor.fetchall()
+        for x in myresult:
+            return x
+
+    def getIDList():
+        idList = []
+        mycursor = universities_db.cursor()
+        mycursor.execute("SELECT application_id FROM final_project.applications")
+        myresult = mycursor.fetchall()
+        for x in myresult:
+            idList.append(x[0])
+        return idList
+        
+    def create(Application):
+        applicant_id = Application.get_applicant_id()
+        program = Applicant.get_program_id
+        mycursor = universities_db.cursor()
+        insert_stmt = ("INSERT INTO final_project.applications(applicant_id,program_id)"
+                        "VALUES(%s, %s)")
+        data = (applicant_id,program_id)
+        mycursor.execute(insert_stmt,data)
+        universities_db.commit()
+
+    def update(id, University):
+        applicant_id = Application.get_applicant_id()
+        program = Applicant.get_program_id
+        mycursor = universities_db.cursor()
+        update_query = """UPDATE final_project.applications SET applicant_id="%s",program_id="%s"
+                        WHERE application_id = "%s";""" % (applicant_id,program_id, id)
+        mycursor.execute(update_query)
+        universities_db.commit()
+        
+    def delete(id):
+        mycursor = universities_db.cursor()
+        mycursor.execute("DELETE FROM final_project.applications WHERE application_id=%(id)s", {'id': id})
+        universities_db.commit()
 
 
 

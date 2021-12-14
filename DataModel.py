@@ -120,6 +120,23 @@ class University:
     def set_size(self, x):
         self.student_body_size = x
 
+class Application:
+    def __init__(self, applicant_id, program_id):
+        self.applicant_id = appplicant_id
+        self.program_id = program_id
+
+    def get_applicant_id(self):
+        return self.applicant_id
+
+    def set_applicant_id(self, x):
+        self.applicant_id = x
+
+    def get_program_id(self):
+        return self.program_id
+
+    def set_program_id(self, x):
+        self.program_id = x
+
 
     
 
