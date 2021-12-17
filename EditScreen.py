@@ -9,7 +9,7 @@ from DataModel import Applicant, Program, University
 
 class EditApplicantScreen(tkinter.Tk):
 
-    def __init__(self,  fill_values = ['']*7):
+    def __init__(self,  fill_values = ['']*8):
         # connect to database
         player_db = mysql.connect(
             host="localhost",
@@ -48,6 +48,7 @@ class EditApplicantScreen(tkinter.Tk):
         self.id.insert(0, str(fill_values[0]))
         self.id.pack()
         l1.pack()
+        
         
 
         l2 = Label(self, text = "First Name")
@@ -262,10 +263,15 @@ class EditProgramScreen(tkinter.Tk):
         l5.pack()
 
         l6 = Label(self, text = "starting_sem")
-        self.starting_sem = tkinter.Entry(self)
-        self.starting_sem.insert(0, str(fill_values[5]))
-        self.starting_sem.pack() 
         l6.pack()
+        OPTIONS = [
+        "Fall",
+        "Spring",
+        "Summer"]
+        self.starting_sem = StringVar(self)
+        self.starting_sem.set(OPTIONS[0]) # default value
+        w = OptionMenu(self, self.starting_sem, *OPTIONS)
+        w.pack()
 
         l9 = Label(self, text = "Fill all fields for update (ID must match)")
         self.update_button = tkinter.Button(self, text="UPDATE", command=self.update_button)
@@ -503,7 +509,7 @@ class EditUniversityScreen(tkinter.Tk):
         item = self.universityTree.selection()
         contents = self.universityTree.item(item)
         values = contents.get('values')
-        EditUniversityScreen(values)
+        EditProgramScreen(values)
         
 
 #window1 = EditScreen()
